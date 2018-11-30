@@ -712,11 +712,11 @@ double irtkImageFreeFormRegistration::EvaluateDerivative(int index, double step)
 
 #ifdef HAS_TBB
   // Create similarity metric if necessary
-  if (sim_queue.pop_if_present(tmpMetricA) == false) {
+  if (sim_queue.try_pop(tmpMetricA) == false) {
     tmpMetricA = irtkSimilarityMetric::New(_metric);
   }
   // Create similarity metric if necessary
-  if (sim_queue.pop_if_present(tmpMetricB) == false) {
+  if (sim_queue.try_pop(tmpMetricB) == false) {
     tmpMetricB = irtkSimilarityMetric::New(_metric);
   }
 #else
