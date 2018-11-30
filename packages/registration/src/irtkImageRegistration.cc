@@ -22,7 +22,7 @@
 
 #ifdef HAS_TBB
 
-tbb::deprecated::concurrent_queue<irtkSimilarityMetric *> sim_queue;
+tbb::strict_ppl::concurrent_queue<irtkSimilarityMetric *> sim_queue;
 
 #endif
 
@@ -396,8 +396,8 @@ void irtkImageRegistration::Finalize(int level)
 
 #ifdef HAS_TBB
   irtkSimilarityMetric *metric;
-  while (sim_queue.size() > 0) {
-    sim_queue.pop(metric);
+  while (sim_queue.unsafe_size() > 0) {
+    sim_queue.try_pop(metric);
     delete metric;
   }
 #endif
